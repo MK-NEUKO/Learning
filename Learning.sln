@@ -5,6 +5,16 @@ VisualStudioVersion = 17.3.32811.315
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\TestProject.csproj", "{99B1797A-5E2D-4BAC-9EE8-FED3437904E1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Udemy_Unit Testing TDD Meisterkurs", "Udemy_Unit Testing TDD Meisterkurs", "{3C4C54E1-5C7B-4EC0-B4FF-52AEB4B913BE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calculator", "..\alt\UnitTesting_TDD_Udemy\Calculator\Calculator.csproj", "{12E6CA89-E8E8-4648-80CB-9357750EE894}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calculator.Tests", "..\alt\UnitTesting_TDD_Udemy\Calculator.Tests\Calculator.Tests.csproj", "{822DCCCB-FE38-4740-B8FB-F102D3A15CE7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CurrencyPairs", "..\alt\UnitTesting_TDD_Udemy\CurrencyPairs\CurrencyPairs.csproj", "{1B6E356E-135E-4C8F-B52E-FC816AA13DFF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CurrencyPairs.Test", "..\alt\UnitTesting_TDD_Udemy\CurrencyPairs.Test\CurrencyPairs.Test.csproj", "{0FF47A98-3007-44D5-8ABC-35090F7606CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +25,31 @@ Global
 		{99B1797A-5E2D-4BAC-9EE8-FED3437904E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99B1797A-5E2D-4BAC-9EE8-FED3437904E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99B1797A-5E2D-4BAC-9EE8-FED3437904E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12E6CA89-E8E8-4648-80CB-9357750EE894}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12E6CA89-E8E8-4648-80CB-9357750EE894}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12E6CA89-E8E8-4648-80CB-9357750EE894}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12E6CA89-E8E8-4648-80CB-9357750EE894}.Release|Any CPU.Build.0 = Release|Any CPU
+		{822DCCCB-FE38-4740-B8FB-F102D3A15CE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{822DCCCB-FE38-4740-B8FB-F102D3A15CE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{822DCCCB-FE38-4740-B8FB-F102D3A15CE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{822DCCCB-FE38-4740-B8FB-F102D3A15CE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B6E356E-135E-4C8F-B52E-FC816AA13DFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B6E356E-135E-4C8F-B52E-FC816AA13DFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B6E356E-135E-4C8F-B52E-FC816AA13DFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B6E356E-135E-4C8F-B52E-FC816AA13DFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FF47A98-3007-44D5-8ABC-35090F7606CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FF47A98-3007-44D5-8ABC-35090F7606CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FF47A98-3007-44D5-8ABC-35090F7606CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FF47A98-3007-44D5-8ABC-35090F7606CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{12E6CA89-E8E8-4648-80CB-9357750EE894} = {3C4C54E1-5C7B-4EC0-B4FF-52AEB4B913BE}
+		{822DCCCB-FE38-4740-B8FB-F102D3A15CE7} = {3C4C54E1-5C7B-4EC0-B4FF-52AEB4B913BE}
+		{1B6E356E-135E-4C8F-B52E-FC816AA13DFF} = {3C4C54E1-5C7B-4EC0-B4FF-52AEB4B913BE}
+		{0FF47A98-3007-44D5-8ABC-35090F7606CD} = {3C4C54E1-5C7B-4EC0-B4FF-52AEB4B913BE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C5CDDF4A-9AEA-4A72-827E-00D80D14D51A}
