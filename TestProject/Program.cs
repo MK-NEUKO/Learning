@@ -1,2 +1,10 @@
 ﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+using System.Threading;
+
+
+for (int i = 0; i < 100; i++)
+{
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Thread.Sleep(1000);
+    Console.WriteLine("Hallo Stella");
+}

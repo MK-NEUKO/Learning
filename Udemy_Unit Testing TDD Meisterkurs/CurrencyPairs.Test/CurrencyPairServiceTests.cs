@@ -15,7 +15,8 @@ namespace CurrencyPairs.Test
             {
                 CurrencyCode1 = "EUR",
                 CurrencyCode2 = "USD",
-                Id = 1
+                Id = 1,
+                Rate = 1.12
             };
 
             Mock<ICurrencyPairRepositorie> currencyPairRepositorieMock = new Mock<ICurrencyPairRepositorie>();
