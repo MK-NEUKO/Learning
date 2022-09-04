@@ -1,5 +1,6 @@
 using CurrencyPairs.Aplication;
 using CurrencyPairs.Contracts;
+using CurrencyPairs.Exeptions;
 using CurrencyPairs.Model;
 using Moq;
 
@@ -30,6 +31,24 @@ namespace CurrencyPairs.Test
 
             //Assert
             Assert.Equal(1.12, result);
+        }
+
+        [Fact]
+        public void Throws_CurrencyPairNotFoundExeption_If_CurrencyPair_Does_Not_Exist()
+        {
+            //Arrange
+
+            Mock<ICurrencyPairRepositorie> currencyPairRepositorieMock = new Mock<ICurrencyPairRepositorie>();
+            currencyPairRepositorieMock.Setup(cpr => cpr.GetCurrencyPair(It.IsAny<string>(), It.IsAny<string>()))
+                                       .Returns<CurrencyPair?>(null);
+
+            var sut = new CurrencyPairService(currencyPairRepositorieMock.Object);
+
+            //Act
+            Action act = () => sut.GetRate("EUR", "USD");
+
+            //Assert
+            Assert.Throws<CurrencyPairNotFoundException>(act);
         }
     }
 }
