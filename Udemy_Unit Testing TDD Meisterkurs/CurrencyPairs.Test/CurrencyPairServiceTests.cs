@@ -23,14 +23,16 @@ namespace CurrencyPairs.Test
             Mock<ICurrencyPairRepositorie> currencyPairRepositorieMock = new Mock<ICurrencyPairRepositorie>();
             currencyPairRepositorieMock.Setup(cpr => cpr.GetCurrencyPair(currencyPair.CurrencyCode1, currencyPair.CurrencyCode2))
                                        .Returns(currencyPair);
+            Mock<ILogerWrapper> loggerWrapperMock = new Mock<ILogerWrapper>();
 
-            var sut = new CurrencyPairService(currencyPairRepositorieMock.Object);
+            var sut = new CurrencyPairService(currencyPairRepositorieMock.Object, loggerWrapperMock.Object);
 
             //Act
             var result = sut.GetRate(currencyPair.CurrencyCode1, currencyPair.CurrencyCode2);
 
             //Assert
             Assert.Equal(1.12, result);
+            loggerWrapperMock.Verify(lw => lw.LogCurrencyPairRequested(currencyPair.CurrencyCode2, currencyPair.CurrencyCode2), Times.Once();
         }
 
         [Fact]
