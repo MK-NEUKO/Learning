@@ -20,12 +20,12 @@ namespace CurrencyPairs.Test
                 Rate = 1.12
             };
 
-            Mock<ICurrencyPairRepositorie> currencyPairRepositorieMock = new Mock<ICurrencyPairRepositorie>();
-            currencyPairRepositorieMock.Setup(cpr => cpr.GetCurrencyPair(currencyPair.CurrencyCode1, currencyPair.CurrencyCode2))
+            Mock<ICurrencyPairRepositorie> currencyPairRepositoryMock = new Mock<ICurrencyPairRepositorie>();
+            currencyPairRepositoryMock.Setup(cpr => cpr.GetCurrencyPair(currencyPair.CurrencyCode1, currencyPair.CurrencyCode2))
                                        .Returns(currencyPair);
             Mock<ILogerWrapper> loggerWrapperMock = new Mock<ILogerWrapper>();
 
-            var sut = new CurrencyPairService(currencyPairRepositorieMock.Object, loggerWrapperMock.Object);
+            var sut = new CurrencyPairService(currencyPairRepositoryMock.Object, loggerWrapperMock.Object);
 
             //Act
             var result = sut.GetRate(currencyPair.CurrencyCode1, currencyPair.CurrencyCode2);
@@ -36,15 +36,15 @@ namespace CurrencyPairs.Test
         }
 
         [Fact]
-        public void Throws_CurrencyPairNotFoundExeption_If_CurrencyPair_Does_Not_Exist()
+        public void Throws_CurrencyPairNotFoundException_If_CurrencyPair_Does_Not_Exist()
         {
             //Arrange
 
-            Mock<ICurrencyPairRepositorie> currencyPairRepositorieMock = new Mock<ICurrencyPairRepositorie>();
-            currencyPairRepositorieMock.Setup(cpr => cpr.GetCurrencyPair(It.IsAny<string>(), It.IsAny<string>()))
+            Mock<ICurrencyPairRepositorie> currencyPairRepositoryMock = new Mock<ICurrencyPairRepositorie>();
+            currencyPairRepositoryMock.Setup(cpr => cpr.GetCurrencyPair(It.IsAny<string>(), It.IsAny<string>()))
                                        .Returns<CurrencyPair?>(null);
 
-            var sut = new CurrencyPairService(currencyPairRepositorieMock.Object);
+            var sut = new CurrencyPairService(currencyPairRepositoryMock.Object);
 
             //Act
             Action act = () => sut.GetRate("EUR", "USD");

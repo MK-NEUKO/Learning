@@ -7,7 +7,7 @@ namespace Calculator.Tests
         [Fact]
         public void Calculate_Average()
         {
-            //Arange
+            //Arrange
             var sut = new AverageCalculator();
             var input = new double[] { 5, 4, 3 };
 
