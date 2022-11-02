@@ -1,2 +1,8 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿
+using PerformanceTestDetermineWinnerTicTacToe;
+
+var gameBoardProvider = new GameBoardProvider();
+gameBoardProvider.CreateGameBoards();
+
+var view = new View();
+view.ShowGameBoardList(gameBoardProvider.GameBoardList);

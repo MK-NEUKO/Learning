@@ -2,10 +2,10 @@
 
 public class GameBoardArea
 {
-    public GameBoardArea(int areaId, string area)
+    public GameBoardArea(int areaId)
     {
         this.AreaId = areaId;
-        this.Area = area;
+        this.Area = " ";
     }
 
     public string Area { get; set; }
