@@ -3,12 +3,13 @@
 public class GameBoardProvider
 {
     private List<GameBoard> _gameBoardList;
-    private GameBoard _gameBoard;
+    private List<GameBoard> _gen2BoardList;
     private readonly int[,] _winConstellations;
 
     public GameBoardProvider()
     {
         _gameBoardList = new List<GameBoard>();
+        _gen2BoardList = new List<GameBoard>();
         _winConstellations = new int[8, 3]
         {
             {0,1,2}, /*  +---+---+---+  */
@@ -24,18 +25,48 @@ public class GameBoardProvider
 
     public List<GameBoard> GameBoardList => _gameBoardList;
 
+    public List<GameBoard> Gen2BoardList => _gen2BoardList;
+
     public void CreateGameBoards()
     {
-        
         for (int i = 0; i < 9; i++)
         {
             var gameBoard = new GameBoard();
             gameBoard.Areas[i].Area = "X";
-            GameBoardList.Add(gameBoard);
+            gameBoard.Areas[i].IsRememberingX = true;
+            _gameBoardList.Add(gameBoard);
         }
     }
 
-    private void CheckGameBoardState(GameBoard gameBoard)
+    public void CreateGen2Board()
+    {
+        foreach (var gameBoard in _gameBoardList)
+        {
+            var indexOfX = 0;
+            foreach (var area in gameBoard.Areas)
+            {
+                if (area.IsRememberingX)
+                {
+                    indexOfX = area.Id;
+                }
+            }
+
+            foreach (var area in gameBoard.Areas)
+            {
+                if (area.Area != "X" && !area.IsRememberingO)
+                {
+                    var newGameBoard = new GameBoard();
+                    newGameBoard.Areas[indexOfX].Area = "X";
+                    newGameBoard.Areas[indexOfX].IsRememberingX = true;
+                    newGameBoard.Areas[area.Id].Area = "O";
+                    newGameBoard.Areas[area.Id].IsRememberingO = true;
+                    _gen2BoardList.Add(newGameBoard);
+                }
+            }
+        }
+    }
+
+    private void IsGameOpen(GameBoard gameBoard)
     {
         CheckForWinner(gameBoard);
         CheckForGameIsTie(gameBoard);
@@ -83,21 +114,5 @@ public class GameBoardProvider
             }
         }
         gameBoard.IsTie = true;
-    }
-}
-
-public class View
-{
-    public void ShowGameBoardList(List<GameBoard> gameBoardList)
-    {
-        foreach (var gameBoard in gameBoardList)
-        {
-            foreach (var area in gameBoard.Areas)
-            {
-                Console.WriteLine();
-                Console.WriteLine(area.Area);
-                Console.WriteLine();
-            }
-        }
     }
 }

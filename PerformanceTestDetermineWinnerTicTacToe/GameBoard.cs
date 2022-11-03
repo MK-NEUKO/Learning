@@ -17,7 +17,7 @@ public class GameBoard
     public bool IsTie { get; set; }
 
     private List<GameBoardArea> CreateAreas()
-    {
+    {   
         var list = new List<GameBoardArea>();
         for (int i = 0; i < 9; i++)
         {
