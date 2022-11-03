@@ -8,4 +8,4 @@ var view = new View();
 view.ShowGameBoardList(gameBoardProvider.Gen1GameBoards);
 
 gameBoardProvider.CreateGen2Board();
-view.ShowGameBoardList(gameBoardProvider.Gen2BoardList);
+view.ShowGameBoardList(gameBoardProvider.Gen1GameBoards);
