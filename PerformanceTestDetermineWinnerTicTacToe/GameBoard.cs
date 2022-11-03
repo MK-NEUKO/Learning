@@ -9,12 +9,14 @@ public class GameBoard
         IsXWinner = false;
         IsOWinner = false;
         IsTie = false;
+        SerialNumber = string.Empty;
     }
 
     public List<GameBoardArea> Areas { get; set; }
     public bool IsXWinner { get; set; }
     public bool IsOWinner { get; set; }
     public bool IsTie { get; set; }
+    public string SerialNumber { get; set; }
 
     private List<GameBoardArea> CreateAreas()
     {   

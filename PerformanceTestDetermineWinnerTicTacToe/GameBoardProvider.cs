@@ -1,14 +1,16 @@
-﻿namespace PerformanceTestDetermineWinnerTicTacToe;
+﻿using System.Windows.Markup;
+
+namespace PerformanceTestDetermineWinnerTicTacToe;
 
 public class GameBoardProvider
 {
-    private List<GameBoard> _gameBoardList;
+    private List<GameBoard> _gen1GameBoardList;
     private List<GameBoard> _gen2BoardList;
     private readonly int[,] _winConstellations;
 
     public GameBoardProvider()
     {
-        _gameBoardList = new List<GameBoard>();
+        _gen1GameBoardList = new List<GameBoard>();
         _gen2BoardList = new List<GameBoard>();
         _winConstellations = new int[8, 3]
         {
@@ -23,24 +25,25 @@ public class GameBoardProvider
         };
     }
 
-    public List<GameBoard> GameBoardList => _gameBoardList;
+    public List<GameBoard> Gen1GameBoards => _gen1GameBoardList;
 
     public List<GameBoard> Gen2BoardList => _gen2BoardList;
 
-    public void CreateGameBoards()
+    public void CreateGen1GameBoardList()
     {
         for (int i = 0; i < 9; i++)
         {
             var gameBoard = new GameBoard();
+            gameBoard.SerialNumber = Convert.ToString(i);
             gameBoard.Areas[i].Area = "X";
             gameBoard.Areas[i].IsRememberingX = true;
-            _gameBoardList.Add(gameBoard);
+            _gen1GameBoardList.Add(gameBoard);
         }
     }
 
     public void CreateGen2Board()
     {
-        foreach (var gameBoard in _gameBoardList)
+        foreach (var gameBoard in _gen1GameBoardList)
         {
             var indexOfX = 0;
             foreach (var area in gameBoard.Areas)
