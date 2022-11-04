@@ -5,13 +5,13 @@ namespace PerformanceTestDetermineWinnerTicTacToe;
 public class GameBoardProvider
 {
     private List<GameBoard> _gen1GameBoardList;
-    private List<GameBoard> _gen2BoardList;
+    private List<GameBoard> _gen2GameBoardList;
     private readonly int[,] _winConstellations;
 
     public GameBoardProvider()
     {
         _gen1GameBoardList = new List<GameBoard>();
-        _gen2BoardList = new List<GameBoard>();
+        _gen2GameBoardList = new List<GameBoard>();
         _winConstellations = new int[8, 3]
         {
             {0,1,2}, /*  +---+---+---+  */
@@ -25,16 +25,17 @@ public class GameBoardProvider
         };
     }
 
-    public List<GameBoard> Gen1GameBoards => _gen1GameBoardList;
+    public IReadOnlyList<GameBoard> Gen1GameBoards => _gen1GameBoardList.AsReadOnly();
 
-    public List<GameBoard> Gen2BoardList => _gen2BoardList;
+    public IReadOnlyList<GameBoard> Gen2GameBoardList => _gen2GameBoardList.AsReadOnly();
 
     public void CreateGen1GameBoardList()
     {
         for (int i = 0; i < 9; i++)
         {
             var gameBoard = new GameBoard();
-            gameBoard.SerialNumber = Convert.ToString(i);
+            gameBoard.GenerationNumber = "1";
+            gameBoard.SerialNumber = Convert.ToString(i + 1);
             gameBoard.Areas[i].Area = "X";
             gameBoard.Areas[i].IsRememberingX = true;
             _gen1GameBoardList.Add(gameBoard);
@@ -43,9 +44,10 @@ public class GameBoardProvider
 
     public void CreateGen2Board()
     {
+        var counter = 0;
         foreach (var gameBoard in _gen1GameBoardList)
         {
-            var indexOfX = 0;
+            var indexOfX = 1;
             foreach (var area in gameBoard.Areas)
             {
                 if (area.IsRememberingX)
@@ -59,11 +61,14 @@ public class GameBoardProvider
                 if (area.Area != "X" && !area.IsRememberingO)
                 {
                     var newGameBoard = new GameBoard();
+                    counter++;
+                    newGameBoard.GenerationNumber = "2";
+                    newGameBoard.SerialNumber = Convert.ToString(counter);
                     newGameBoard.Areas[indexOfX].Area = "X";
                     newGameBoard.Areas[indexOfX].IsRememberingX = true;
                     newGameBoard.Areas[area.Id].Area = "O";
                     newGameBoard.Areas[area.Id].IsRememberingO = true;
-                    _gen2BoardList.Add(newGameBoard);
+                    _gen2GameBoardList.Add(newGameBoard);
                 }
             }
         }

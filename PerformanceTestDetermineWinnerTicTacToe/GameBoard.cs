@@ -10,6 +10,7 @@ public class GameBoard
         IsOWinner = false;
         IsTie = false;
         SerialNumber = string.Empty;
+        GenerationNumber = string.Empty;
     }
 
     public List<GameBoardArea> Areas { get; set; }
@@ -17,6 +18,7 @@ public class GameBoard
     public bool IsOWinner { get; set; }
     public bool IsTie { get; set; }
     public string SerialNumber { get; set; }
+    public string GenerationNumber { get; set; }
 
     private List<GameBoardArea> CreateAreas()
     {   

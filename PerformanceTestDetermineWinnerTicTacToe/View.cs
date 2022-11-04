@@ -1,10 +1,13 @@
-﻿namespace PerformanceTestDetermineWinnerTicTacToe;
+﻿using System.Diagnostics;
+
+namespace PerformanceTestDetermineWinnerTicTacToe;
 
 public class View
 {
     public void ShowGameBoardList(List<GameBoard> gameBoardList)
     {
         var gameBoardsTotal = Convert.ToString(gameBoardList.Count());
+        WriteMainHeadline(gameBoardList[0].GenerationNumber, gameBoardsTotal);
         foreach (var gameBoard in gameBoardList)
         {
             WriteHeadline(gameBoard, gameBoardsTotal);
@@ -12,15 +15,29 @@ public class View
         }
     }
 
+    private void WriteMainHeadline(string generationNumber, string gameBoardsTotal)
+    {
+        Console.ForegroundColor = ConsoleColor.DarkRed;
+        Console.WriteLine(" ########################################################################################");
+        Console.WriteLine($" # In the {generationNumber}. Generation are {gameBoardsTotal} game Boards generated.                         ");
+        Console.WriteLine($" # The {generationNumber}. generation represents all possible game boards with {generationNumber} token.      ");
+        Console.WriteLine(" ########################################################################################");
+        Console.ResetColor();
+        Console.WriteLine();
+    }
+
 
     private void WriteHeadline(GameBoard gameBoard, string gameBoardsTotal)
     {
-        var headline = $"  Generation 1 GameBoard List: SerialNumber = {gameBoard.SerialNumber} from {gameBoardsTotal} GameBoards ";
-        Console.ForegroundColor = ConsoleColor.Black;
-        Console.BackgroundColor = ConsoleColor.DarkYellow;
-        Console.Write($"{headline}");
+        var headlinePartOne = $"  Generation {gameBoard.GenerationNumber} GameBoard List: ";
+        var headlinePartTwo = $"SerialNumber = {gameBoard.SerialNumber} from {gameBoardsTotal} GameBoards ";
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.BackgroundColor = ConsoleColor.DarkRed;
+        Console.Write(headlinePartOne);
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.Write(headlinePartTwo);
         Console.ResetColor();
-        Console.WriteLine("\n-".PadRight(headline.Length, '-') + "-");
+        Console.WriteLine("\n-".PadRight((headlinePartOne.Length + headlinePartTwo.Length), '-') + "-");
     }
 
     private void WriteGameBoard(GameBoard gameBoard)
@@ -42,7 +59,7 @@ public class View
     {
         Console.Write("    ---+---+---    X,O = Normal Token | ");
         Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.Write("X,O = WinnerArea\n");
+        Console.Write("X,O = IsWinArea\n");
         Console.ResetColor();
     }
 
