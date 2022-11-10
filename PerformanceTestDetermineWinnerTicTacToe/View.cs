@@ -4,7 +4,7 @@ namespace PerformanceTestDetermineWinnerTicTacToe;
 
 public class View
 {
-    public void ShowGameBoardList(List<GameBoard> gameBoardList)
+    public void ShowGameBoardList(IReadOnlyList<GameBoard> gameBoardList)
     {
         var gameBoardsTotal = Convert.ToString(gameBoardList.Count());
         WriteMainHeadline(gameBoardList[0].GenerationNumber, gameBoardsTotal);
@@ -15,7 +15,7 @@ public class View
         }
     }
 
-    private void WriteMainHeadline(string generationNumber, string gameBoardsTotal)
+    private void WriteMainHeadline(int generationNumber, string gameBoardsTotal)
     {
         Console.ForegroundColor = ConsoleColor.DarkRed;
         Console.WriteLine(" ########################################################################################");

@@ -1,17 +1,25 @@
-﻿using System.Windows.Markup;
+﻿using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.Metrics;
+using System.Security.Cryptography.X509Certificates;
+using System.Windows.Markup;
 
 namespace PerformanceTestDetermineWinnerTicTacToe;
 
 public class GameBoardProvider
 {
     private List<GameBoard> _gen1GameBoardList;
+    private List<GameBoard> _gen1WithoutSwappedTokens;
     private List<GameBoard> _gen2GameBoardList;
+    private List<GameBoard> _gen3GameBoardList;
     private readonly int[,] _winConstellations;
 
     public GameBoardProvider()
     {
         _gen1GameBoardList = new List<GameBoard>();
+        _gen1WithoutSwappedTokens = new List<GameBoard>();
         _gen2GameBoardList = new List<GameBoard>();
+        _gen3GameBoardList = new List<GameBoard>();
         _winConstellations = new int[8, 3]
         {
             {0,1,2}, /*  +---+---+---+  */
@@ -25,54 +33,102 @@ public class GameBoardProvider
         };
     }
 
-    public IReadOnlyList<GameBoard> Gen1GameBoards => _gen1GameBoardList.AsReadOnly();
+    public IReadOnlyList<GameBoard> Gen1GameBoardList => _gen1GameBoardList.AsReadOnly();
 
     public IReadOnlyList<GameBoard> Gen2GameBoardList => _gen2GameBoardList.AsReadOnly();
+
+    public IReadOnlyList<GameBoard> Gen3GameBoardList => _gen3GameBoardList.AsReadOnly();
 
     public void CreateGen1GameBoardList()
     {
         for (int i = 0; i < 9; i++)
         {
-            var gameBoard = new GameBoard();
-            gameBoard.GenerationNumber = "1";
-            gameBoard.SerialNumber = Convert.ToString(i + 1);
+            var gameBoard = new GameBoard
+            {
+                GenerationNumber = 1,
+                SerialNumber = (i + 1)
+            };
             gameBoard.Areas[i].Area = "X";
             gameBoard.Areas[i].IsRememberingX = true;
+            _gen1WithoutSwappedTokens.Add(gameBoard);
             _gen1GameBoardList.Add(gameBoard);
         }
+        SwapTokens(_gen1GameBoardList);
     }
 
-    public void CreateGen2Board()
+    public void CreateGen2GameBoardList()
     {
-        var counter = 0;
-        foreach (var gameBoard in _gen1GameBoardList)
+        var counter = 1;
+        foreach (var gameBoard in _gen1WithoutSwappedTokens)
         {
-            var indexOfX = 1;
             foreach (var area in gameBoard.Areas)
             {
-                if (area.IsRememberingX)
+                if (area.Area == " ")
                 {
-                    indexOfX = area.Id;
-                }
-            }
-
-            foreach (var area in gameBoard.Areas)
-            {
-                if (area.Area != "X" && !area.IsRememberingO)
-                {
-                    var newGameBoard = new GameBoard();
-                    counter++;
-                    newGameBoard.GenerationNumber = "2";
-                    newGameBoard.SerialNumber = Convert.ToString(counter);
-                    newGameBoard.Areas[indexOfX].Area = "X";
-                    newGameBoard.Areas[indexOfX].IsRememberingX = true;
+                    var newGameBoard = new GameBoard
+                    {
+                        GenerationNumber = 2,
+                        SerialNumber = counter,
+                    };
+                    gameBoard.Areas.ForEach(area => newGameBoard.Areas[area.Id].Area = area.Area);
                     newGameBoard.Areas[area.Id].Area = "O";
-                    newGameBoard.Areas[area.Id].IsRememberingO = true;
                     _gen2GameBoardList.Add(newGameBoard);
+                    counter++;
                 }
             }
         }
     }
+
+    public void CreateGen3GameBoardList()
+    {
+        var counter = 1;
+        foreach (var gameBoard in _gen2GameBoardList)
+        {
+            foreach (var area in gameBoard.Areas)
+            {
+                if (area.Area == " ")
+                {
+                    var newGameBoard = new GameBoard
+                    {
+                        GenerationNumber = 3,
+                        SerialNumber = counter,
+                    };
+                    gameBoard.Areas.ForEach(area => newGameBoard.Areas[area.Id].Area = area.Area);
+                    newGameBoard.Areas[area.Id].Area = "X";
+                    _gen3GameBoardList.Add(newGameBoard);
+                    counter++;
+                }
+            }
+        }
+    }
+
+    private void SwapTokens(List<GameBoard> toSwapGameBoard)
+    {
+        var swappedGameBoardList = new List<GameBoard>();
+        foreach (var gameBoard in toSwapGameBoard)
+        {
+            var swappedGameBoard = new GameBoard();
+            swappedGameBoard.GenerationNumber = gameBoard.GenerationNumber;
+            swappedGameBoard.SerialNumber = gameBoard.SerialNumber + toSwapGameBoard.Count;
+            foreach (var area in gameBoard.Areas)
+            {
+                if (area.Area == "X")
+                {
+                    swappedGameBoard.Areas[area.Id].Area = "O";
+                    swappedGameBoard.Areas[area.Id].IsRememberingO = true;
+                }
+
+                if (area.Area == "O")
+                {
+                    swappedGameBoard.Areas[area.Id].Area = "X";
+                    swappedGameBoard.Areas[area.Id].IsRememberingX = true;
+                }
+            }
+            swappedGameBoardList.Add(swappedGameBoard);
+        }
+        swappedGameBoardList.ForEach(item => toSwapGameBoard.Add(item));
+    }
+
 
     private void IsGameOpen(GameBoard gameBoard)
     {

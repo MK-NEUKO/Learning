@@ -9,16 +9,16 @@ public class GameBoard
         IsXWinner = false;
         IsOWinner = false;
         IsTie = false;
-        SerialNumber = string.Empty;
-        GenerationNumber = string.Empty;
+        SerialNumber = 0;
+        GenerationNumber = 0;
     }
 
     public List<GameBoardArea> Areas { get; set; }
     public bool IsXWinner { get; set; }
     public bool IsOWinner { get; set; }
     public bool IsTie { get; set; }
-    public string SerialNumber { get; set; }
-    public string GenerationNumber { get; set; }
+    public decimal SerialNumber { get; set; }
+    public int GenerationNumber { get; set; }
 
     private List<GameBoardArea> CreateAreas()
     {   
