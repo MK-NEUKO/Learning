@@ -34,13 +34,12 @@ public class GameBoardProvider
         var genDepth = 1;
         var currentGameBoardList = new List<GameBoard>();
         var currentToken = "X";
-        var generationNumber = 1;
         for (int i = 0; i < 9; i++)
         {
             var gameBoard = new GameBoard
             {
-                GenerationNumber = generationNumber,
-                SerialNumber = (i + 1)
+                GenerationNumber = genDepth,
+                SerialNumber = Convert.ToString(i + 1)
             };
             gameBoard.Areas[i].Token = currentToken;
             currentGameBoardList.Add(gameBoard);
@@ -54,7 +53,7 @@ public class GameBoardProvider
 
     public void CreateNextGenGameBoards(List<GameBoard> currentGameBoardList,int genDepth, string currentToken)
     {
-        if (genDepth > 5)
+        if (genDepth > 3)
         {
             return;
         }
@@ -68,8 +67,8 @@ public class GameBoardProvider
                 {
                     var newGameBoard = new GameBoard
                     {
-                        GenerationNumber = 2,
-                        SerialNumber = counter,
+                        GenerationNumber = genDepth,
+                        SerialNumber = Convert.ToString(counter),
                     };
                     currentGameBoard.Areas.ForEach(currentArea => newGameBoard.Areas[currentArea.Id].Token = currentArea.Token);
                     newGameBoard.Areas[currentArea.Id].Token = currentToken;

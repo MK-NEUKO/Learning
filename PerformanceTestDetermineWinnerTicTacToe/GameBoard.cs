@@ -2,6 +2,7 @@
 
 public class GameBoard
 {
+    private string _serialNumber = string.Empty;
 
     public GameBoard()
     {
@@ -9,7 +10,6 @@ public class GameBoard
         IsXWinner = false;
         IsOWinner = false;
         IsTie = false;
-        SerialNumber = 0;
         GenerationNumber = 0;
     }
 
@@ -17,8 +17,14 @@ public class GameBoard
     public bool IsXWinner { get; set; }
     public bool IsOWinner { get; set; }
     public bool IsTie { get; set; }
-    public decimal SerialNumber { get; set; }
+
+    public string SerialNumber
+    {
+        get => $"Gen{GenerationNumber}-{_serialNumber}";
+        set => _serialNumber = value;
+    }
     public int GenerationNumber { get; set; }
+    
 
     private List<GameBoardArea> CreateAreas()
     {   

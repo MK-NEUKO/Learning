@@ -29,8 +29,8 @@ public class View
 
     private void WriteHeadline(GameBoard gameBoard, string gameBoardsTotal)
     {
-        var headlinePartOne = $"  Generation {gameBoard.GenerationNumber} GameBoard List: ";
-        var headlinePartTwo = $"SerialNumber = {gameBoard.SerialNumber} from {gameBoardsTotal} GameBoards ";
+        var headlinePartOne = $"  Generation {gameBoard.GenerationNumber} GameBoards | ";
+        var headlinePartTwo = $"SerialNumber = {gameBoard.SerialNumber} | Total {gameBoardsTotal} GameBoards ";
         Console.ForegroundColor = ConsoleColor.White;
         Console.BackgroundColor = ConsoleColor.DarkRed;
         Console.Write(headlinePartOne);
