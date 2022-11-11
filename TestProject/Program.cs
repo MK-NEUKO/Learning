@@ -5,6 +5,6 @@ using System.Threading;
 for (int i = 0; i < 100; i++)
 {
     Console.ForegroundColor = ConsoleColor.Yellow;
-    Thread.Sleep(1000);
-    Console.WriteLine("Hallo Stella");
+    Thread.Sleep(500);
+    Console.WriteLine("Lightning McQueen");
 }

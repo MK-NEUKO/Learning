@@ -93,27 +93,27 @@ public class View
         if (gameBoardArea.IsWinArea)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write($" {gameBoardArea.Area} ");
+            Console.Write($" {gameBoardArea.Token} ");
             Console.ResetColor();
             return;
         }
         if (gameBoardArea.IsRememberingO)
         {
             Console.BackgroundColor = ConsoleColor.DarkBlue;
-            Console.Write($" {gameBoardArea.Area} ");
+            Console.Write($" {gameBoardArea.Token} ");
             Console.ResetColor();
             return;
         }
         if (gameBoardArea.IsRememberingX)
         {
             Console.BackgroundColor = ConsoleColor.DarkGreen;
-            Console.Write($" {gameBoardArea.Area} ");
+            Console.Write($" {gameBoardArea.Token} ");
             Console.ResetColor();
             return;
         }
         else
         {
-            Console.Write($" {gameBoardArea.Area} ");
+            Console.Write($" {gameBoardArea.Token} ");
         }
     }
 }
