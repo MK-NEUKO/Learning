@@ -53,7 +53,7 @@ public class GameBoardProvider
 
     public void CreateNextGenGameBoards(List<GameBoard> currentGameBoardList,int genDepth, string currentToken)
     {
-        if (genDepth > 3)
+        if (genDepth > 9)
         {
             return;
         }
@@ -61,6 +61,8 @@ public class GameBoardProvider
         var nextGenGameBoardList = new List<GameBoard>();
         foreach (var currentGameBoard in currentGameBoardList)
         {
+            if(currentGameBoard.IsOWinner || currentGameBoard.IsXWinner || currentGameBoard.IsTie)
+                continue;
             foreach (var currentArea in currentGameBoard.Areas)
             {
                 if (currentArea.Token == " ")
@@ -72,6 +74,8 @@ public class GameBoardProvider
                     };
                     currentGameBoard.Areas.ForEach(currentArea => newGameBoard.Areas[currentArea.Id].Token = currentArea.Token);
                     newGameBoard.Areas[currentArea.Id].Token = currentToken;
+                    if(genDepth == 5)
+                        EvaluateGameBoard(newGameBoard);
                     nextGenGameBoardList.Add(newGameBoard);
                     _gameBoardList.Add(newGameBoard);
                     counter++;
@@ -100,9 +104,11 @@ public class GameBoardProvider
         var swappedGameBoardList = new List<GameBoard>();
         foreach (var gameBoard in toSwapGameBoardList)
         {
-            var swappedGameBoard = new GameBoard();
-            swappedGameBoard.GenerationNumber = gameBoard.GenerationNumber;
-            swappedGameBoard.SerialNumber = Convert.ToString(toSwapGameBoardList.Count + counter);
+            var swappedGameBoard = new GameBoard
+            {
+                GenerationNumber = gameBoard.GenerationNumber,
+                SerialNumber = Convert.ToString(toSwapGameBoardList.Count + counter)
+            };
             foreach (var area in gameBoard.Areas)
             {
                 if (area.Token == "X")
@@ -124,7 +130,7 @@ public class GameBoardProvider
     }
 
 
-    private void IsGameOpen(GameBoard gameBoard)
+    private void EvaluateGameBoard(GameBoard gameBoard)
     {
         CheckForWinner(gameBoard);
         CheckForGameIsTie(gameBoard);
