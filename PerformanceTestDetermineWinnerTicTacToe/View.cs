@@ -7,25 +7,12 @@ public class View
     public void ShowGameBoardList(IReadOnlyList<GameBoard> gameBoardList)
     {
         var gameBoardsTotal = Convert.ToString(gameBoardList.Count());
-        WriteMainHeadline(gameBoardList[0].GenerationNumber, gameBoardsTotal);
         foreach (var gameBoard in gameBoardList)
         {
             WriteHeadline(gameBoard, gameBoardsTotal);
             WriteGameBoard(gameBoard);
         }
     }
-
-    private void WriteMainHeadline(int generationNumber, string gameBoardsTotal)
-    {
-        Console.ForegroundColor = ConsoleColor.DarkRed;
-        Console.WriteLine(" ########################################################################################");
-        Console.WriteLine($" # In the {generationNumber}. Generation are {gameBoardsTotal} game Boards generated.                         ");
-        Console.WriteLine($" # The {generationNumber}. generation represents all possible game boards with {generationNumber} token.      ");
-        Console.WriteLine(" ########################################################################################");
-        Console.ResetColor();
-        Console.WriteLine();
-    }
-
 
     private void WriteHeadline(GameBoard gameBoard, string gameBoardsTotal)
     {

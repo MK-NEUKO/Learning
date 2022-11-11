@@ -96,12 +96,13 @@ public class GameBoardProvider
 
     private void SwapTokens(List<GameBoard> toSwapGameBoardList)
     {
+        var counter = 1;
         var swappedGameBoardList = new List<GameBoard>();
         foreach (var gameBoard in toSwapGameBoardList)
         {
             var swappedGameBoard = new GameBoard();
             swappedGameBoard.GenerationNumber = gameBoard.GenerationNumber;
-            swappedGameBoard.SerialNumber = gameBoard.SerialNumber + toSwapGameBoardList.Count;
+            swappedGameBoard.SerialNumber = Convert.ToString(toSwapGameBoardList.Count + counter);
             foreach (var area in gameBoard.Areas)
             {
                 if (area.Token == "X")
@@ -116,6 +117,7 @@ public class GameBoardProvider
                     swappedGameBoard.Areas[area.Id].IsRememberingX = true;
                 }
             }
+            counter++;
             swappedGameBoardList.Add(swappedGameBoard);
         }
         _gameBoardList.AddRange(swappedGameBoardList);
